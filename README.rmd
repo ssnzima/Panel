@@ -95,8 +95,6 @@ tidy_afr_mm %>%
     labs (x="", y ="% of people with mobile money accounts", title = "Mobile money account holders: SADC", caption = "Source: Own calculations, IMF data") +
     ggthemes::theme_economist()
 
-
-
 ```
 
 
