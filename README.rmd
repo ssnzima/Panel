@@ -1,0 +1,104 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
+# Purpose
+
+Implementing dplyr & tidyverse using IMF data [imfapi]
+
+
+```{r}
+
+rm(list = ls())
+
+```
+
+```{r}
+if (!require("pacman", quietly = TRUE)) {
+    install.packages("pacman")
+    library(pacman)
+}
+
+p_load(wbstats, WDI, tidyverse, haven)
+
+library(help="WDI")
+wbstats::wb_cachelist
+WDI::WDI_data
+
+```
+
+
+```{r}
+
+pacman::p_load(imfapi, tidyverse)
+
+ls("package:imfapi")
+
+imf_get_dataflows()
+
+imf_get_datastructure("GS_ATF")
+
+imf_get_codelists("COUNTRY", "GS_ATF")
+imf_get_codelists("INDICATOR", "GS_ATF")
+
+
+sa_mm <- imf_get(dataflow_id = "GS_ATF",
+                    dimensions = list(
+                        COUNTRY = "ZAF",
+                        INDICATOR = "YAMM_PT"
+                    ),
+                    start_period = "2010")
+
+swz_mm <- imf_get(dataflow_id = "GS_ATF",
+                    dimensions = list(
+                        COUNTRY = "SWZ",
+                        INDICATOR = "YAMM_PT"
+                    ),
+                    start_period = "2010")
+
+afr_mm <- imf_get(dataflow_id = "GS_ATF",
+                    dimensions = list(
+                        COUNTRY = c("ZAF", "SWZ", "LSO", "BWA", "MWI", "MOZ"),
+                        INDICATOR = "YAMM_PT"
+                    ),
+                    start_period = "2010")
+
+#-------------------------------------------------------
+#ANALYTICS
+#----------------------------------------------------
+
+
+tidy_afr_mm <- afr_mm %>%
+    select( COUNTRY, GENDER, TIME_PERIOD, OBS_VALUE) %>%
+    rename(country = COUNTRY,
+           gender = GENDER,
+           year = TIME_PERIOD,
+           people_mm = OBS_VALUE) %>%
+    mutate(gender = recode(gender, "F"= "Women", "M" = "Men"))
+
+tidy_afr_mm %>%
+    filter(country == "ZAF") %>%
+    ggplot(aes(x=year, y=people_mm, fill = gender)) + 
+    geom_col(position = "dodge") +
+    scale_fill_manual(values = c("Women" = "#E07B8A", "Men" = "#5B8DB8")) +
+    labs (x="", y ="% of people with mobile money accounts", title = "Mobile money account holders: SA ", caption = "Source: Own calculations, IMF data") +
+    ggthemes::theme_economist()
+
+
+tidy_afr_mm %>%
+    ggplot(aes(x=year, y=people_mm, fill = gender)) + 
+    geom_col(position = "dodge") +
+    facet_wrap(~ country) +
+    scale_fill_manual(values = c("Women" = "#E07B8A", "Men" = "#5B8DB8")) +
+    labs (x="", y ="% of people with mobile money accounts", title = "Mobile money account holders: SADC", caption = "Source: Own calculations, IMF data") +
+    ggthemes::theme_economist()
+
+
+
+```
+
+
+
+
