@@ -15,19 +15,6 @@ rm(list = ls())
 
 ```
 
-```{r}
-if (!require("pacman", quietly = TRUE)) {
-    install.packages("pacman")
-    library(pacman)
-}
-
-p_load(wbstats, WDI, tidyverse, haven)
-
-library(help="WDI")
-wbstats::wb_cachelist
-WDI::WDI_data
-
-```
 
 
 ```{r}
@@ -96,6 +83,17 @@ tidy_afr_mm %>%
     ggthemes::theme_economist()
 
 ```
+In Africa, the conversation around financial inclusion and accessible digitisation take the fore of economic themes. Where there are weak financial institutions or barriers hindering ordinary individuals from owning bank accounts exist, fintech innovations such as mobile money have bridged the gap.
+
+While all countries have a gap in the reported discrete data, the findings provide vital insights into the disproportional distribution of mobile money account ownership across genders in selected African economies. 
+
+Botswana, Malawi, Mozambique: increasing percentage ownership for both genders, with men owning more than women in all periods. In Botwana, however, the gap between genders narrowed in the 2024 period.
+Lesotho: had alternating dominance in ownership, with the genders approximately equalised in the 2024 period.
+Eswatini: showed an opposing reality to its neighbouring countries. In the two reported periods, women owned more mobile money accounts relative to men, with the distribution equalising in 2024. Additionally, there's a decline in percentage ownership for women over these two periods. 
+South Africa: shows the largest reversal i.e men and women were on par in ownership in 2014 and 2017, women edged men in 2021 but in 2024 that reversed with women owning less as a proportion than they previously held. 
+
+These findings, while interesting, reveal a major concern in how IMF captures this data. Firstly, there are inconsistencies in the availability of the data - perhaps due to internal data or reporting constraints in the various economies. Secondly, unbalanced panels in how surveys were implemented across the periods i.e were more women asked if they own a mobile money account in 2024 in South Africa & Eswatini relative to 2022 which resulted in the reversal of percentage ownership? Evidently, the different individuals were surveyed not necessarily the same people captured across different periods. This information may provide vital to telenetwork service providers and regulators who aim to narrow the gender gaps in ownership of financial instruments that aid in equalising the playing field (financial inclusivity). 
+
 
 
 
