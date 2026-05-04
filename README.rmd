@@ -52,9 +52,9 @@ afr_mm <- imf_get(dataflow_id = "GS_ATF",
                     ),
                     start_period = "2010")
 
-#-------------------------------------------------------
+#---------------------------------------------------------
 #ANALYTICS
-#-------------------------------------------------------
+#---------------------------------------------------------
 
 
 tidy_afr_mm <- afr_mm %>%
@@ -81,7 +81,6 @@ tidy_afr_mm %>%
     scale_fill_manual(values = c("Women" = "#E07B8A", "Men" = "#5B8DB8")) +
     labs (x="", y ="% of people with mobile money accounts", title = "Mobile money account holders: SADC", caption = "Source: Own calculations, IMF data") +
     ggthemes::theme_economist()
-
 ```
 In Africa, the conversation around financial inclusion and accessible digitisation take the fore of economic themes. Where there are weak financial institutions or barriers hindering ordinary individuals from owning bank accounts exist, fintech innovations such as mobile money have bridged the gap.
 
